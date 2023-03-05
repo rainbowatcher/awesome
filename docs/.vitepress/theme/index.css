@@ -1,0 +1,31 @@
+/* .VPContent.has-aside .container {
+  margin: 0;
+} */
+
+@media (min-width: 1440px) {
+  .VPDoc:not(.has-sidebar) .container > .content {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPDoc:not(.has-sidebar) .container > .content {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPDoc:not(.has-sidebar) .container {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPDoc:not(.has-sidebar) .container {
+    max-width: 100% !important;
+  }
+}
+
+.VPDoc.has-aside .content-container {
+  max-width: 100% !important;
+}
