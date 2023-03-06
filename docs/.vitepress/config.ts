@@ -4,7 +4,7 @@ import contanierThing from "./theme/plugins/contanier-thing"
 import containerGrid from "./theme/plugins/container-grid"
 
 export default defineConfig({
-  base: "awesome",
+  base: "/awesome",
   themeConfig: {
     siteTitle: "Awesome",
     socialLinks: [
