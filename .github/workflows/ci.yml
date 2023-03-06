@@ -4,15 +4,15 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  build:
-    name: Build
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:  
       - uses: actions/checkout@v3
       - run: corepack enable
@@ -22,27 +22,21 @@ jobs:
           cache: pnpm
    
       - name: Install packages
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build docs
         run: pnpm docs:build
       
+      - name: Config pages
+        uses: actions/configure-pages@v2
+
       - name: Upload artifact
         id: upload
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "docs/.vitepress/dist"
+          path: docs/.vitepress/dist
 
-  deploy:
-    name: Deploy
-    needs: build
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+      
