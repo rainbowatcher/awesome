@@ -26,7 +26,7 @@ jobs:
         id: upload
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "docs/.vuepress/dist"
+          path: "docs/.vitepress/dist"
 
   deploy:
     name: Deploy
