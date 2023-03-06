@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
-import Card from "./Card.vue"
-import Grid from "./Grid.vue"
+import Card from "./components/Card.vue"
+import Grid from "./components/Grid.vue"
 import {Theme} from 'vitepress'
 import "./index.css"
 

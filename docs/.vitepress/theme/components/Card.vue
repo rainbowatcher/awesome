@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
 import { computed, useSlots } from 'vue';
-import { Icon } from './types';
 
 const props = defineProps<{
     icon?: string

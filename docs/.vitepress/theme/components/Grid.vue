@@ -4,7 +4,7 @@ import { toRef } from 'vue';
 const props = withDefaults(defineProps<{
   width?: string
 }>(), {
-  width: '200px'
+  width: '300px'
 })
 
 const width = toRef(props, "width")

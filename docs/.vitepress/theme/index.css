@@ -2,6 +2,10 @@
   margin: 0;
 } */
 
+:root{
+  --vp-layout-max-width: 100%;
+}
+
 @media (min-width: 1440px) {
   .VPDoc:not(.has-sidebar) .container > .content {
     max-width: 100% !important;
