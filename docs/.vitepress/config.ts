@@ -29,7 +29,7 @@ export default defineConfig({
           const linkAttr = map.get("link") ? `link="${map.get("link")}"` : ""
           const badgeAttr = parseBadgeAttr(map, linkAttr)
           const f = `<Card name="${name}" ${iconAttr} ${linkAttr} ${badgeAttr}>`
-          console.log(f)
+
           return token.nesting === 1 ? f : "</Card>\n"
         },
       })
