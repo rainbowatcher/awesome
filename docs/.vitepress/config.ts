@@ -11,7 +11,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: "github",
-        link: "rainbowatcher/awesome",
+        link: "http://github.com/rainbowatcher/awesome",
       },
     ],
     outline: {

@@ -10,11 +10,5 @@ export default {
   enhanceApp({ app }) {
     app.component('Thing', Thing)
     app.component('Grid', Grid)
-
-    // const icons = import.meta.glob("./icons/*.vue", { eager: true })
-
-    // for (const icon in icons) {
-    //   app.component(icon.split("/").at(-1).split('.')[0], icons[icon].default)
-    // }
   },
 } as Theme
