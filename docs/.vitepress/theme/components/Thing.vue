@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
 import { computed, useSlots } from 'vue';
+import 'iconify-icon';
 
 const props = defineProps<{
     icon?: string
     name: string
     link?: string
-    author?: string
     badges?: string
-    extras?: string
+    desc?: string
 }>()
 
+
+const _icon = computed(() => `simple-icons:${props.icon}`)
 const { isDark } = useData()
 const color = computed(() => {
     return isDark.value ? "#fafafa" : "#283636"
@@ -23,12 +25,12 @@ const slots = useSlots()
 <template>
     <section class="thing-wrapper">
         <div class="thing-header">
-            <a :href="link" target="__blank">
-                <component v-if="icon" :is="icon" :color="color"></component>
+            <a :href="link" target="__blank" :class="desc ? 'hint--top hint--rounded' : ''" :aria-label="desc">
+                <iconify-icon :icon="_icon" height="1.5rem" :style="{ color }"></iconify-icon>
                 <p class="thing-title">{{ name }}</p>
             </a>
             <div v-if="badges" class="thing-header-extra">
-                <img v-for="src in badgeImgSrcArr" :src="src" alt="badge">
+                <img v-for="src in badgeImgSrcArr" :src="src" alt="badge" loading="lazy">
             </div>
         </div>
 
@@ -45,19 +47,18 @@ const slots = useSlots()
     height: 100%;
     padding: .4rem 1rem;
     border-radius: .6rem;
-    background-color: rgba(135, 135, 135, 0.04);
-    outline: 1px solid rgba(135, 135, 135, .4);
-    transition: box-shadow .4s linear;
-    transition: outline .4s ease;
+    background-color: rgba(200, 200, 200, 0.08);
+    outline: 1px solid rgba(135, 135, 135, .2);
+    transition: all .3s linear;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .thing-wrapper:hover {
-    outline: 3px solid rgba(129, 248, 198, 0.4);
-    ;
-    /* background-color: rgba(88, 201, 150, 0.4); */
-    box-shadow: 0px 3px 6px rgba(7, 119, 69, 0.06),
-        0px 6px 12px rgba(9, 130, 91, 0.12),
+    outline: 3px solid rgba(65, 255, 227, 0.4);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.06),
+        0px 6px 12px rgba(0, 0, 0, 0.12),
         0 0 0 1px rgba(255, 255, 255, 0.08);
+    /* background-color: rgba(88, 201, 150, 0.4); */
 }
 
 .thing-header {

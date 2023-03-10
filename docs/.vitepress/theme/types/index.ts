@@ -4,6 +4,7 @@ export const badgeTypes = [
   "install_size",
   "stars",
   "npm_dm",
+  "language",
 ] as const
 
 export type BadgeType = typeof badgeTypes[number]

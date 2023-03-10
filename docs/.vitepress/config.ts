@@ -1,7 +1,8 @@
 import { defineConfig } from "vitepress"
-import container from "markdown-it-container"
-import contanierThing from "./theme/plugins/contanier-thing"
-import containerGrid from "./theme/plugins/container-grid"
+import ContainerThingPlugin from "./theme/plugins/container-thing"
+import ContainerGridPlugin from "./theme/plugins/container-grid"
+import InlineThingPlugin from "./theme/plugins/inline-thing"
+import { imgLazyload } from "@mdit/plugin-img-lazyload"
 
 export default defineConfig({
   base: "/awesome",
@@ -20,9 +21,18 @@ export default defineConfig({
   },
   markdown: {
     config: (md) => {
-      md.use(container, "thing", contanierThing)
-      md.use(container, "grid", containerGrid)
+      md.use(imgLazyload)
+      md.use(ContainerThingPlugin, "thing")
+      md.use(ContainerGridPlugin, "grid")
+      md.use(InlineThingPlugin, "thing")
+    },
+  },
+  vue: {
+    template: {
+      compilerOptions: {
+        // treat all tags with a dash as custom elements
+        isCustomElement: (tag) => tag.includes("-"),
+      },
     },
   },
 })
-

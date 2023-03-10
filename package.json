@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -10,10 +11,15 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
+    "@iconify-icons/simple-icons": "^1.2.44",
+    "@mdit/plugin-container": "^0.3.0",
+    "@mdit/plugin-img-lazyload": "^0.3.0",
+    "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.14.6",
-    "markdown-it-container": "^3.0.0",
+    "hint.css": "^2.7.0",
+    "iconify-icon": "^1.0.7",
     "vitepress": "1.0.0-alpha.49",
     "vue": "^3.2.47"
   }
