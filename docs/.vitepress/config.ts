@@ -3,9 +3,11 @@ import ContainerThingPlugin from "./theme/plugins/container-thing"
 import ContainerGridPlugin from "./theme/plugins/container-grid"
 import InlineThingPlugin from "./theme/plugins/inline-thing"
 import { imgLazyload } from "@mdit/plugin-img-lazyload"
+import ListThingPlugin from "./theme/plugins/list-thing"
 
 export default defineConfig({
   base: "/awesome",
+  cleanUrls: true,
   themeConfig: {
     siteTitle: "Awesome",
     socialLinks: [
@@ -22,9 +24,10 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(imgLazyload)
-      md.use(ContainerThingPlugin, "thing")
-      md.use(ContainerGridPlugin, "grid")
-      md.use(InlineThingPlugin, "thing")
+        .use(ContainerThingPlugin, "thing")
+        .use(ContainerGridPlugin, "grid")
+        .use(InlineThingPlugin, "thing")
+        .use(ListThingPlugin)
     },
   },
   vue: {

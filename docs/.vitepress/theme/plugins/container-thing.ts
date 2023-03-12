@@ -1,8 +1,9 @@
 import { container } from "@mdit/plugin-container"
 import { badgeTypes, BadgeType } from "../types"
 
-export function parseBadgeAttr(map: Map<string, string>, linkAttr: string) {
+export function parseBadgeAttr(map: Map<string, string>, linkAttr: string): string {
   const badges = map.get("badges")
+  if (!badges) return ""
   const badgeStrs = []
   if (badges && linkAttr.includes("github")) {
     const splits = map.get("link").split("/")

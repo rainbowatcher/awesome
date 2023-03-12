@@ -35,10 +35,10 @@ const InlinePlugin: (opts: Opts) => MarkdownIt.PluginSimple = (opts) => (md) => 
     return slf.renderToken(tokens, idx, options);
   }
 
-  const containerRuler: RuleBlock = (state, startline, endline, silent) => {
-    const indentOffset = state.sCount[startline]
-    const startIdx = state.bMarks[startline] + indentOffset
-    const endIdx = state.eMarks[startline]
+  const containerRuler: RuleBlock = (state, startLine, endLine, silent) => {
+    const indentOffset = state.sCount[startLine]
+    const startIdx = state.bMarks[startLine] + indentOffset
+    const endIdx = state.eMarks[startLine]
     const markupFirstChar = markup[0]
     const lineFirstChar = state.src[startIdx]
 
@@ -57,10 +57,10 @@ const InlinePlugin: (opts: Opts) => MarkdownIt.PluginSimple = (opts) => (md) => 
     token.markup = markup
     token.block = true
     token.info = params
-    token.map = [startline, startline + 1]
+    token.map = [startLine, startLine + 1]
 
-    state.line = startline + 1;
-    state.lineMax = startline + 1
+    state.line = startLine + 1;
+    state.lineMax = startLine + 1
     return true
   }
 

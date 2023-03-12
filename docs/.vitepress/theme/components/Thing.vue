@@ -12,13 +12,13 @@ const props = defineProps<{
 }>()
 
 
-const _icon = computed(() => `simple-icons:${props.icon}`)
+const _icon = computed(() => `simple-icons:${props.icon ?? 'github'}`)
 const { isDark } = useData()
 const color = computed(() => {
     return isDark.value ? "#fafafa" : "#283636"
 })
 
-const badgeImgSrcArr = props.badges?.split(";")
+const badgeImgSrcArr = props.badges?.includes(";") ? props.badges.split(";") : [props.badges]
 const slots = useSlots()
 </script>
 
@@ -27,7 +27,7 @@ const slots = useSlots()
         <div class="thing-header">
             <a :href="link" target="__blank" :class="desc ? 'hint--top hint--rounded' : ''" :aria-label="desc">
                 <iconify-icon :icon="_icon" height="1.5rem" :style="{ color }"></iconify-icon>
-                <p class="thing-title">{{ name }}</p>
+                {{ name }}
             </a>
             <div v-if="badges" class="thing-header-extra">
                 <img v-for="src in badgeImgSrcArr" :src="src" alt="badge" loading="lazy">
@@ -45,7 +45,7 @@ const slots = useSlots()
     max-width: 100%;
     max-height: 140px;
     height: 100%;
-    padding: .4rem 1rem;
+    padding: .6rem 1rem;
     border-radius: .6rem;
     background-color: rgba(200, 200, 200, 0.08);
     outline: 1px solid rgba(135, 135, 135, .2);
