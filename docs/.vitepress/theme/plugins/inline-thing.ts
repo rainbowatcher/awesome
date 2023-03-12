@@ -1,4 +1,3 @@
-import { debug } from "console"
 import MarkdownIt from "markdown-it"
 import { RuleBlock } from "markdown-it/lib/parser_block"
 import Renderer from "markdown-it/lib/renderer"
@@ -12,67 +11,68 @@ type Opts = {
   render?: Renderer.RenderRule
 }
 
-const InlinePlugin: (opts: Opts) => MarkdownIt.PluginSimple = (opts) => (md) => {
-  const {
-    name,
-    markup = "::",
-    validate = (params: string) => params.trim().split(" ", 2)[0] === name,
-    render = renderDefault,
-  } = opts || {}
+const InlinePlugin: (opts: Opts) => MarkdownIt.PluginSimple =
+  (opts) => (md) => {
+    const {
+      name,
+      markup = "::",
+      validate = (params: string) => params.trim().split(" ", 2)[0] === name,
+      render = renderDefault,
+    } = opts || {}
 
-  function renderDefault(
-    tokens: Token[],
-    idx: number,
-    options: MarkdownIt.Options,
-    _env: any,
-    slf: any
-  ) {
-    // add a class to the opening tag
-    if (tokens[idx].nesting === 1) {
-      tokens[idx].attrJoin("class", name)
+    function renderDefault(
+      tokens: Token[],
+      idx: number,
+      options: MarkdownIt.Options,
+      _env: any,
+      slf: any
+    ) {
+      // add a class to the opening tag
+      if (tokens[idx].nesting === 1) {
+        tokens[idx].attrJoin("class", name)
+      }
+
+      return slf.renderToken(tokens, idx, options)
     }
 
-    return slf.renderToken(tokens, idx, options);
+    const containerRuler: RuleBlock = (state, startLine, endLine, silent) => {
+      const indentOffset = state.sCount[startLine]
+      const startIdx = state.bMarks[startLine] + indentOffset
+      const endIdx = state.eMarks[startLine]
+      const markupFirstChar = markup[0]
+      const lineFirstChar = state.src[startIdx]
+
+      if (markupFirstChar !== lineFirstChar) return false
+
+      const lineMarkup = state.src.slice(startIdx, startIdx + markup.length)
+      const params = state.src.slice(startIdx + markup.length, endIdx)
+      if (lineMarkup !== markup) return false
+      if (!validate(params, markup)) return false
+      if (silent) return true
+
+      // @ts-expect-error type
+      state.parentType = "container"
+
+      let token = state.push("thing", "div", 0)
+      token.markup = markup
+      token.block = true
+      token.info = params
+      token.map = [startLine, startLine + 1]
+
+      state.line = startLine + 1
+      state.lineMax = startLine + 1
+      return true
+    }
+
+    md.block.ruler.before("fence", `container_${name}`, containerRuler, {
+      alt: ["paragraph", "reference", "blockquote", "list"],
+    })
+    md.renderer.rules["thing"] = render
   }
-
-  const containerRuler: RuleBlock = (state, startLine, endLine, silent) => {
-    const indentOffset = state.sCount[startLine]
-    const startIdx = state.bMarks[startLine] + indentOffset
-    const endIdx = state.eMarks[startLine]
-    const markupFirstChar = markup[0]
-    const lineFirstChar = state.src[startIdx]
-
-    if (markupFirstChar !== lineFirstChar) return false
-
-    const lineMarkup = state.src.slice(startIdx, startIdx + markup.length)
-    const params = state.src.slice(startIdx + markup.length, endIdx)
-    if (lineMarkup !== markup) return false
-    if (!validate(params, markup)) return false
-    if (silent) return true
-
-    // @ts-expect-error type
-    state.parentType = "container"
-
-    let token = state.push("thing", "div", 0)
-    token.markup = markup
-    token.block = true
-    token.info = params
-    token.map = [startLine, startLine + 1]
-
-    state.line = startLine + 1;
-    state.lineMax = startLine + 1
-    return true
-  }
-
-  md.block.ruler.before("fence", `container_${name}`, containerRuler, {
-    alt: ["paragraph", "reference", "blockquote", "list"],
-  })
-  md.renderer.rules["thing"] = render
-}
 
 const InlineThingPlugin = InlinePlugin({
   name: "thing",
-  render: (() => thingRender("thing", true))()
+  render: (() => thingRender("thing", true))(),
 })
 
 export default InlineThingPlugin

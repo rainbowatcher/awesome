@@ -1,3 +1,7 @@
 {
-  "unocss.disable": false
+  "unocss.disable": false,
+  "cSpell.words": [
+    "shieldsdotio",
+    "vuedotjs"
+  ]
 }

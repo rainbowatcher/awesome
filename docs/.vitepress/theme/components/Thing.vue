@@ -11,7 +11,6 @@ const props = defineProps<{
     desc?: string
 }>()
 
-
 const _icon = computed(() => `simple-icons:${props.icon ?? 'github'}`)
 const { isDark } = useData()
 const color = computed(() => {
@@ -25,7 +24,7 @@ const slots = useSlots()
 <template>
     <section class="thing-wrapper">
         <div class="thing-header">
-            <a :href="link" target="__blank" :class="desc ? 'hint--top hint--rounded' : ''" :aria-label="desc">
+            <a :href="link" target="__blank" :class="desc ? 'hint--top-right hint--rounded hint--medium' : ''" :aria-label="desc">
                 <iconify-icon :icon="_icon" height="1.5rem" :style="{ color }"></iconify-icon>
                 {{ name }}
             </a>
@@ -105,5 +104,9 @@ const slots = useSlots()
     -webkit-box-orient: vertical;
     line-height: 1.45rem !important;
     margin: 0 0 .4rem 0 !important;
+}
+
+[class*="hint--"][aria-label]::after {
+    font-size: medium;
 }
 </style>

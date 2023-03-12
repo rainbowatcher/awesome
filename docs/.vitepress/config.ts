@@ -10,6 +10,7 @@ export default defineConfig({
   cleanUrls: true,
   themeConfig: {
     siteTitle: "Awesome",
+    returnToTopLabel: "Top",
     socialLinks: [
       {
         icon: "github",
@@ -18,15 +19,12 @@ export default defineConfig({
     ],
     outline: {
       level: [2, 3],
-      label: "menu",
+      label: "Menu 菜单",
     },
   },
   markdown: {
     config: (md) => {
       md.use(imgLazyload)
-        .use(ContainerThingPlugin, "thing")
-        .use(ContainerGridPlugin, "grid")
-        .use(InlineThingPlugin, "thing")
         .use(ListThingPlugin)
     },
   },

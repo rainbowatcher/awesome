@@ -1,9 +1,26 @@
 import { PluginSimple } from "markdown-it"
 import { RuleBlock } from "markdown-it/lib/parser_block"
 import { RenderRule } from "markdown-it/lib/renderer"
-import { parseBadgeAttr } from "./container-thing"
+import { badgeTypes, BadgeType } from "../types"
 
 const LIST_MARKERS = ["*", "-", "+"]
+
+export function parseBadgeAttr(linkAttr: string): string {
+  const badgeStrs = []
+  if (linkAttr.includes("github")) {
+    const splits = linkAttr.split("/")
+    const user = splits.at(-2)
+    const repo = splits.at(-1)
+    badgeStrs.push(
+      `https://img.shields.io/github/license/${user}/${repo}?label=&style=flat`
+    )
+    badgeStrs.push(
+      `https://img.shields.io/github/stars/${user}/${repo}?label=&style=flat`
+    )
+  }
+
+  return badgeStrs.reduce((pre, next) => `${pre}${next};`, "").slice(0, -1)
+}
 
 const thingOpenRender: RenderRule = (
   tokens,
@@ -25,7 +42,10 @@ const thingOpenRender: RenderRule = (
     if (token.meta.get("link")) attrs.push(`link="${token.meta.get("link")}"`)
     if (token.meta.get("icon")) attrs.push(`icon="${token.meta.get("icon")}"`)
     if (token.meta.get("desc")) attrs.push(`desc="${token.meta.get("desc")}"`)
-    if (token.meta.get("badges")) attrs.push(`badges="${parseBadgeAttr(token.meta, token.meta.get("link"))}"`)
+    if (token.meta.get("link"))
+      attrs.push(
+        `badges="${parseBadgeAttr(token.meta.get("link"))}"`
+      )
   }
   return `<Thing${attrs.reduce((pre, next) => `${pre} ${next}`, "")}>`
 }
@@ -47,7 +67,6 @@ const ListThingPlugin: PluginSimple = (md) => {
   const meta = new Map()
 
   const listBlockRuler: RuleBlock = (state, startLine, endLine, silent) => {
-    
     if (state.listIndent !== -1 && !silent) {
       const token = state.tokens.at(-1)!
       if (token.level + 1 === state.level) {
@@ -55,15 +74,16 @@ const ListThingPlugin: PluginSimple = (md) => {
         const startIdx = state.bMarks[startLine] + indentOffset
         const endIdx = state.eMarks[startLine]
         const line = state.src.slice(startIdx, endIdx)
-        
-        let titleExpr: string, content = ""
+
+        let titleExpr: string,
+          content = ""
         const lineRE = /.*\s+-\s+.*/
         if (lineRE.test(line)) {
           ;[titleExpr, content] = line.split(/\s+-\s+/, 2).map((i) => i.trim())
         } else {
           titleExpr = line.trim()
         }
-  
+
         // if list item's name is a markdown link
         const linkRE = /\[(.*)\]\((.*)\)/
         if (linkRE.test(titleExpr)) {
@@ -73,7 +93,7 @@ const ListThingPlugin: PluginSimple = (md) => {
         } else {
           meta.set("title", titleExpr)
         }
-  
+
         if (content) {
           if (content.includes("{")) {
             const desc = content.split("{")[0].trimEnd()
@@ -82,7 +102,7 @@ const ListThingPlugin: PluginSimple = (md) => {
             meta.set("desc", content)
           }
         }
-  
+
         // parse '{foo=bar}'
         const RE = /\{(.*)\}/
         if (RE.test(content)) {
