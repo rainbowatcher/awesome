@@ -6,7 +6,7 @@ import { imgLazyload } from "@mdit/plugin-img-lazyload"
 import ListThingPlugin from "./theme/plugins/list-thing"
 
 export default defineConfig({
-  base: "/awesome",
+  base: "/",
   cleanUrls: true,
   themeConfig: {
     siteTitle: "Awesome",
