@@ -1,12 +1,9 @@
 import { defineConfig } from "vitepress"
-import ContainerThingPlugin from "./theme/plugins/container-thing"
-import ContainerGridPlugin from "./theme/plugins/container-grid"
-import InlineThingPlugin from "./theme/plugins/inline-thing"
 import { imgLazyload } from "@mdit/plugin-img-lazyload"
 import ListThingPlugin from "./theme/plugins/list-thing"
 
 export default defineConfig({
-  base: "/",
+  base: "/awesome/",
   cleanUrls: true,
   themeConfig: {
     siteTitle: "Awesome",
