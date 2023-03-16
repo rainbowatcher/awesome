@@ -1,9 +1,5 @@
-/* .VPContent.has-aside .container {
-  margin: 0;
-} */
-
 :root{
-  --vp-layout-max-width: 100%;
+  --vp-layout-max-width: 100% !important;
 }
 
 @media (min-width: 1440px) {
