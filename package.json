@@ -13,14 +13,14 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@iconify-icons/simple-icons": "^1.2.44",
-    "@mdit/plugin-container": "^0.3.0",
-    "@mdit/plugin-img-lazyload": "^0.3.0",
+    "@iconify-icons/simple-icons": "^1.2.47",
+    "@mdit/plugin-container": "^0.4.3",
+    "@mdit/plugin-img-lazyload": "^0.4.3",
     "@types/markdown-it": "^12.2.3",
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.15.11",
     "hint.css": "^2.7.0",
     "iconify-icon": "^1.0.7",
-    "vitepress": "1.0.0-alpha.60",
+    "vitepress": "1.0.0-alpha.65",
     "vue": "^3.2.47"
   }
 }
