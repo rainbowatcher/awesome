@@ -1,7 +1,9 @@
 {
   "unocss.disable": false,
   "cSpell.words": [
+    "datenkollektiv",
     "shieldsdotio",
     "vuedotjs"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

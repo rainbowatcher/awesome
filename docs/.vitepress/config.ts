@@ -18,6 +18,9 @@ export default defineConfig({
       level: [2, 3],
       label: "Menu 菜单",
     },
+    search: {
+      provider: "local"
+    }
   },
   markdown: {
     config: (md) => {

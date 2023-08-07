@@ -1,7 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import Thing from "./components/Thing.vue"
 import Grid from "./components/Grid.vue"
-import {Theme} from 'vitepress'
 import "./index.css"
 import "hint.css"
 
@@ -11,4 +10,4 @@ export default {
     app.component('Thing', Thing)
     app.component('Grid', Grid)
   },
-} as Theme
+}
