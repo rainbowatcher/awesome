@@ -24,7 +24,7 @@ const slots = useSlots()
 <template>
     <section class="thing-wrapper">
         <div class="thing-header">
-            <a :href="link" target="__blank" :class="desc ? 'hint--top-right hint--rounded hint--medium' : ''" :aria-label="desc">
+            <a class="no-icon" :href="link" target="__blank" :class="desc ? 'hint--top-right hint--rounded hint--medium' : ''" :aria-label="desc">
                 <iconify-icon :icon="_icon" height="1.5rem" :style="{ color }"></iconify-icon>
                 {{ name }}
             </a>
