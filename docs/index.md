@@ -47,6 +47,10 @@
 
 - [cloudflare](https://dash.cloudflare.com) - {icon=cloudflare}
 
+### Software
+
+- [RustScan](https://github.com/RustScan/RustScan) - 🤖 The Modern Port Scanner 🤖
+
 ## Util 工具
 
 ### Banner 标语
