@@ -14,11 +14,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:  
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - run: corepack enable
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 22
           cache: pnpm
    
       - name: Install packages
@@ -28,15 +28,15 @@ jobs:
         run: pnpm docs:build
       
       - name: Config pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
         id: upload
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/.vitepress/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v5
       
