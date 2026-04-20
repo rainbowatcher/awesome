@@ -43,6 +43,11 @@
 
 ## Network 网络
 
+### IP 地址检测
+
+- [IpCheck](https://ipcheck.ing/#/) - 检测IP地址和地理位置以及WebRTC
+- [IpNetCoffee](https://ip.net.coffee/) - Claude 检测 DNS泄露
+
 ### 厂商
 
 - [cloudflare](https://dash.cloudflare.com) - {icon=cloudflare}
